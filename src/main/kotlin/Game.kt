@@ -3,6 +3,38 @@ package org.example
 class Game {
 
     fun start() {
+        println("환영합니다! 원하시는 번호를 입력해주세요")
+        while (true) {
+            println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")
+            try{
+                val selectedMenu = readln().toInt()
+
+                when (selectedMenu) {
+                    1 -> startGame()
+                    2 -> viewRecord()
+                    3 -> exit()
+                    else -> throw IllegalArgumentException("올바른 번호를 입력해주세요.")
+                }
+            } catch (e: NumberFormatException) {
+                println("숫자를 입력해주세요.")
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+            }
+
+
+        }
+    }
+
+    private fun viewRecord() {
+        TODO("Not yet implemented")
+    }
+
+    private fun exit() {
+        TODO("Not yet implemented")
+    }
+
+
+    fun startGame() {
         println("=====숫자 야구 게임=====")
         println("세자리 숫자를 입력해주세요. 단, 각 자릿수는 서로 다른 숫자이어야 합니다.")
 
@@ -65,7 +97,7 @@ class Game {
         if(ball > 0) result += "${ball}볼"
 
         if(result.isEmpty()) result = "Nothing"
-        if(strike == 3) result = "정답입니다!"
+        if(strike == 3) result = "정답입니다!\n"
 
         println(result)
     }
