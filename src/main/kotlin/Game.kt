@@ -34,7 +34,7 @@ class Game {
     }
 
 
-    fun startGame() {
+    private fun startGame() {
         println("=====숫자 야구 게임=====")
         println("세자리 숫자를 입력해주세요. 단, 각 자릿수는 서로 다른 숫자이어야 합니다.")
 
@@ -60,16 +60,22 @@ class Game {
 
 
     private fun makeAnswer(): List<Int> {
-        val numList = 1..9
-        return numList.shuffled().take(3).toList()
+        val numList = 0..9
+        var answer: List<Int>
+        do {
+            answer = numList.shuffled().take(3).toList()
+
+        }while (answer.indexOf(0) == 0)
+
+        return answer
     }
 
     private fun isValidInput(input: List<Int>): Boolean {
         //세자리 수 이어야함
         if(input.size != 3) throw IllegalArgumentException("세자리 수 이어야 합니다.")
 
-        //각 자리수가 1..9가 아니면 에러
-        input.forEach { if (it !in 1..9) throw IllegalArgumentException("0은 쓸 수 없습니다.") }
+        //첫 자릿수가 0이면 에러
+        if(input.indexOf(0) == 0) throw IllegalArgumentException("첫 자리에 0은 쓸 수 없습니다.")
 
         //중복된 숫자가 있으면 에러
         if(input.distinct().size != 3) throw IllegalArgumentException("숫자가 중복될 수 없습니다.")
