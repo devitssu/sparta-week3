@@ -3,10 +3,11 @@ package org.example
 class Game {
 
     private val gameRecord: MutableList<Int> = mutableListOf()
+    private var exitFlag:Boolean = false
 
     fun start() {
         println("환영합니다! 원하시는 번호를 입력해주세요")
-        while (true) {
+        while (!exitFlag) {
             println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")
             try{
                 val selectedMenu = readln().toInt()
@@ -38,7 +39,8 @@ class Game {
     }
 
     private fun exit() {
-        TODO("Not yet implemented")
+        exitFlag = true
+        println("=====게임을 종료합니다=====")
     }
 
 
