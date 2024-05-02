@@ -2,6 +2,8 @@ package org.example
 
 class Game {
 
+    private val gameRecord: MutableList<Int> = mutableListOf()
+
     fun start() {
         println("환영합니다! 원하시는 번호를 입력해주세요")
         while (true) {
@@ -26,7 +28,13 @@ class Game {
     }
 
     private fun viewRecord() {
-        TODO("Not yet implemented")
+        if (gameRecord.isEmpty()) {
+            println("기록이 없습니다.")
+        } else {
+            gameRecord.forEachIndexed { index, count ->
+                println("${index + 1}번째 게임 : 시도 횟수 - $count")
+            }
+        }
     }
 
     private fun exit() {
@@ -39,16 +47,22 @@ class Game {
         println("세자리 숫자를 입력해주세요. 단, 각 자릿수는 서로 다른 숫자이어야 합니다.")
 
         val answer = makeAnswer()
+        var count:Int = 0
 
         while (true) {
             var input:List<Int>
             try {
                 input = readln().chunked(1).map { it.toInt() }
                 isValidInput(input)
+
+                count++
                 val(strike, ball) = makeResult(input, answer)
 
                 printResult(strike, ball)
-                if(strike == 3) return
+                if(strike == 3) {
+                    gameRecord.add(count)
+                    return
+                }
             } catch (e:NumberFormatException) {
                 println("숫자를 입력해주세요.")
             } catch (e:Exception) {
